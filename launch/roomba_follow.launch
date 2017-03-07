@@ -1,0 +1,39 @@
+<launch>
+    <arg name="sim" default="false" doc="true if we are running in the sim" />
+
+    <arg name="bondIds" doc="list of names of nodes to require bonds with"
+        default="[
+            'fc_comms_msp',
+            'low_level_motion',
+            'motion_planner',
+            'roomba_follow_abstract'
+            ]"
+        unless="$(arg sim)" />
+    <arg name="bondIds" doc="list of names of nodes to require bonds with"
+        default="[
+            'low_level_motion',
+            'motion_planner',
+            'roomba_follow_abstract'
+            ]"
+        if="$(arg sim)" />
+
+    <!-- if we're in the sim -->
+    <group if="$(arg sim)">
+        <include file="$(find iarc7_simulator)/launch/morse.launch" />
+    </group>
+
+    <include file="$(find iarc7_safety)/launch/iarc7_safety.launch">
+        <arg name="bondIds" default="['low_level_motion', 'motion_planner']"/>
+    </include>
+
+    <include file="$(find iarc7_motion)/launch/low_level_motion.launch">
+        <arg name="platform" value="sim" />
+    </include>
+
+    <include file="$(find iarc7_launch)/launch/localization.launch">
+    </include>
+
+    <node name="roomba_motion" pkg="iarc7_simulator" type="roomba_controller.py" />
+    <node name="roomba_follow_abstract" pkg="iarc7_abstract" type="roomba_follow.py" />
+
+</launch>
