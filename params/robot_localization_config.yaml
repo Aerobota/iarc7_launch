@@ -114,7 +114,7 @@ pose0_config: [false, false, true,
 pose0_differential: false
 pose0_relative: false
 pose0_queue_size: 500
-# pose0_rejection_threshold: 3
+pose0_rejection_threshold: 5
 pose0_nodelay: false
 
 pose1: altimeter_pose
@@ -154,7 +154,7 @@ pose3_queue_size: 500
 pose3_nodelay: false
 
 # Whether or not we use the control input during predicition. Defaults to false.
-use_control: true
+use_control: false
 # Whether the input (assumed to be cmd_vel) is a geometry_msgs/Twist or
 # geometry_msgs/TwistStamped message. Defaults to false.
 stamped_control: true
@@ -175,10 +175,10 @@ deceleration_limits: [5.0, 5.0, 2.0, 0.0, 0.0, 0.0]
 
 # If your robot cannot instantaneously reach its acceleration limit, the
 # permitted change can be controlled with these gains
-acceleration_gains: [10.0, 10.0, 30.0, 0.0, 0.0, 0.0]
+acceleration_gains: [10.0, 10.0, 10.0, 0.0, 0.0, 0.0]
 # If your robot cannot instantaneously reach its deceleration limit, the
 # permitted change can be controlled with these gains
-deceleration_gains: [10.0, 10.0, 30.0, 0.0, 0.0, 0.0]
+deceleration_gains: [10.0, 10.0, 10.0, 0.0, 0.0, 0.0]
 
 # [ADVANCED] The process noise covariance matrix can be difficult to tune, and can vary for each application, so it is
 # exposed as a configuration parameter. This matrix represents the noise we add to the total error after each
